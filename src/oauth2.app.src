@@ -1,0 +1,16 @@
+{application, oauth2,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib,
+                  inets,
+                  crypto,
+                  public_key,
+                  ssl
+                 ]},
+  {mod, { oauth2_app, []}},
+  {env, []}
+ ]}.
