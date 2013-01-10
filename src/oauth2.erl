@@ -39,16 +39,10 @@ handle_call({token_from_refresh, ClientId, Secret, Site, RefreshToken}, _From, L
     {error, _Reason} -> {[]}
   end,
 
-  AccessToken = case lists:keyfind(<<"access_token">>, 1, ParamList) of
-    false -> "";
-    {_, Token} -> binary:bin_to_list(Token)
-  end,
-  InstanceUrl= case lists:keyfind(<<"instance_url">>, 1, ParamList) of
-    false -> "";
-    {_, U} -> binary:bin_to_list(U)
-  end,
+  Reply = lists:map(fun({Name,Value}) ->
+    {list_to_atom(binary:bin_to_list(Name)), binary:bin_to_list(Value)}
+  end, ParamList),
 
-  Reply = [{access_token, AccessToken}, {instance_url, InstanceUrl}],
   {reply, Reply, LoopData}.
 
 
